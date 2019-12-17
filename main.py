@@ -21,12 +21,14 @@ def randomTweet():
 def randomRetweet():
     twitter = Twitter()
     timeline = twitter.getHomeTimeline()
-    randIndex = random.randrange(0, 100, 1)
+    randIndex = random.randrange(0, 200, 1)
     tweet_id = timeline[randIndex]['id_str']
     twitter.retweet(tweet_id)
 
-
-randomRetweet()
-# randomTweet()
+idx = random.randrange(0, 20, 1)
+if(idx % 2 == 0):
+    randomRetweet()
+else:
+    randomTweet()
 
 
