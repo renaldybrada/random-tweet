@@ -24,7 +24,7 @@ class Twitter:
         return twitter_credential
 
     def getHomeTimeline(self):
-        timeline = self.twitter.get_home_timeline(count=100)
+        timeline = self.twitter.get_home_timeline(count=200)
         return timeline
     
     def getUserTimeline(self, screen_name):
