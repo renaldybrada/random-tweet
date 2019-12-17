@@ -7,13 +7,13 @@ class Quotes:
         headers = {"Accept": "application/json"}
         response = requests.get(baseUrl, headers=headers)
         theJoke = response.json()['joke'] 
-        return theJoke
+        return theJoke + " #BadDadJoke"
 
     def randomAdvices(self):
         baseUrl = "https://api.adviceslip.com/advice"
         response = requests.get(baseUrl)
         theAdvice = response.json()['slip']['advice'] 
-        return theAdvice
+        return theAdvice + " #advice"
 
     def randomFamousQuote(self):
         baseUrl = "https://quote-garden.herokuapp.com/quotes/random"
@@ -22,4 +22,4 @@ class Quotes:
         theAuthor = response.json()['quoteAuthor']
         if(theAuthor == ""):
             theAuthor = "anonymous"
-        return "'" + theQuote + "' - " + theAuthor 
+        return "'" + theQuote + "' - " + theAuthor + " #quotes"
