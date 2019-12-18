@@ -63,3 +63,7 @@ class Twitter:
                 hashtagTrend = trend['name']
                 break 
         return hashtagTrend
+
+    def likeTweet(self, tweet_id):
+        self.twitter.create_favorite(id=tweet_id)
+        print(tweet_id + " liked!")

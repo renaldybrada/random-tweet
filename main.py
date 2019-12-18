@@ -34,21 +34,26 @@ def randomTweet():
         randomTweet()
 
 
-def randomRetweet():
+def randomRetweet(likeTweet=True):
     try:
         twitter = Twitter()
         timeline = twitter.getHomeTimeline()
         randIndex = random.randrange(0, 200, 1)
         tweet_id = timeline[randIndex]['id_str']
-
+        
         twitter.retweet(tweet_id)
-        print("retweeting : " + tweet_id)
+
+        if(likeTweet):
+            twitter.likeTweet(tweet_id)
+        
     except:
         randomRetweet()
 
-idx = random.randrange(0, 20, 1)
-if(idx % 2 == 0):
+idx = random.randrange(0, 21, 1)
+if(idx % 3 == 0):
     randomRetweet()
+elif(idx % 3 == 1):
+    randomRetweet(likeTweet=False)
 else:
     randomTweet()
 
