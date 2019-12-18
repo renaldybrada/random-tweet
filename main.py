@@ -9,7 +9,7 @@ def randomTweet():
 
         # randoming tweet type
         quoteTypes = ["dad-jokes", "advices", "famous-quote"]
-        randIndex = random.randrange(0, 2, 1)
+        randIndex = random.randrange(0, 3, 1)
         if (quoteTypes[randIndex] == "dad-jokes"):
             message = quotes.randomDadJokes()
         elif (quoteTypes[randIndex] == "advices"):
