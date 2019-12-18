@@ -42,3 +42,24 @@ class Twitter:
     def retweet(self, tweet_id):
         self.twitter.retweet(id=tweet_id)
         print(tweet_id + " Retweeted!")
+
+    def getClosestTrend(self):
+        locationResponse = requests.get('https://freegeoip.app/json/')
+        location = locationResponse.json()
+        locationTwitter = self.twitter.get_closest_trends(lat=location['latitude'], long=location['longitude'])
+        trends = self.twitter.get_place_trends(id=int(locationTwitter[0]['woeid']))
+        trends = trends[0]['trends']
+        return trends
+
+    def getWorldWideTrend(self):
+        trends = self.twitter.get_place_trends(id=1, exclude="words")
+        trends = trends[0]['trends']
+        return trends
+
+    def selectHashtagFromTrend(self, trends):
+        hashtagTrend = ""
+        for trend in trends:
+            if (trend['name'].find('#') != -1):
+                hashtagTrend = trend['name']
+                break 
+        return hashtagTrend
