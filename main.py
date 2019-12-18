@@ -6,9 +6,10 @@ def randomTweet():
     try:
         twitter = Twitter()
         quotes = Quotes()
+
+        # randoming tweet type
         quoteTypes = ["dad-jokes", "advices", "famous-quote"]
         randIndex = random.randrange(0, 2, 1)
-        
         if (quoteTypes[randIndex] == "dad-jokes"):
             message = quotes.randomDadJokes()
         elif (quoteTypes[randIndex] == "advices"):
@@ -16,6 +17,17 @@ def randomTweet():
         else:
             message = quotes.randomFamousQuote()
         
+        # randoming trending topic hashtag
+        randIndex = random.randrange(0, 2, 1)
+        if(randIndex==1):
+            trends = twitter.getWorldWideTrend()
+        else:
+            trends = twitter.getClosestTrend()
+        hashtag = twitter.selectHashtagFromTrend(trends)
+
+        # combining message and trending topic hashtag
+        message = message + " " + hashtag
+
         twitter.postTweet(message)
         print('tweeting : ' + message)
     except:
@@ -28,7 +40,7 @@ def randomRetweet():
         timeline = twitter.getHomeTimeline()
         randIndex = random.randrange(0, 200, 1)
         tweet_id = timeline[randIndex]['id_str']
-        
+
         twitter.retweet(tweet_id)
         print("retweeting : " + tweet_id)
     except:
