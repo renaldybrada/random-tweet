@@ -67,3 +67,7 @@ class Twitter:
     def likeTweet(self, tweet_id):
         self.twitter.create_favorite(id=tweet_id)
         print(tweet_id + " liked!")
+
+    def getFollowersList(self, screen_name):
+        followers = self.twitter.get_followers_list(screen_name=screen_name)
+        return followers
