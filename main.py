@@ -23,13 +23,12 @@ def randomTweet():
             trends = twitter.getWorldWideTrend()
         else:
             trends = twitter.getClosestTrend()
-        hashtag = twitter.selectHashtagFromTrend(trends)
 
         # combining message and trending topic hashtag
+        hashtag = twitter.selectHashtagFromTrend(trends)
         message = message + " " + hashtag
 
         twitter.postTweet(message)
-        print('tweeting : ' + message)
     except:
         randomTweet()
 

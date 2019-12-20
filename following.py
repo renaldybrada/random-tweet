@@ -22,8 +22,8 @@ def isWorthFollowing(follower):
         return False
 
 def selectedTwitterAccount():
-    # twitterScreenNames = ["infomalang", "infobdg", "VICE_ID", "potretlawas", "NUgarislucu", "KatolikG", "mojokdotco", "ThelIluminatii"]
-    twitterScreenNames = ["infomalang", "infomalang", "infomalang"]
+    twitterScreenNames = ["infomalang", "infobdg", "VICE_ID", "potretlawas", "NUgarislucu", "KatolikG", "mojokdotco", "ThelIluminatii"]
+    # twitterScreenNames = ["infomalang", "infomalang", "infomalang"]
     randIndex = random.randrange(0, 3, 1)
     return twitterScreenNames[randIndex]
 
@@ -39,9 +39,9 @@ def populatingFollowingCandidate(twitterAccount, cursor=-1):
             continue
         elif isWorthFollowing(follower) :
             screen_name = follower['screen_name']
-            if( screen_name != None):
+            print(screen_name)
+            if( type(screen_name) != None ):
                 candidate.append(screen_name)
-                print(screen_name)
         else :
             continue
 
@@ -51,15 +51,15 @@ def populatingFollowingCandidate(twitterAccount, cursor=-1):
     else:
         return candidate
 
-twitter = Twitter()
-twitterAccount = selectedTwitterAccount()
-candidate = populatingFollowingCandidate(twitterAccount)
-if(len(candidate) == 0):
-    print("no candidate available")
-    exit()
+try:
+    twitter = Twitter()
+    twitterAccount = selectedTwitterAccount()
+    candidate = populatingFollowingCandidate(twitterAccount)
 
-for user in candidate:
-    print(user)
-    twitter.followAccount(user)
+    for user in candidate:
+        twitter.followAccount(user)
+except Exception as e:
+    print('something went wrong: '+ str(e))
+
 
 # print (json.dumps(followers, indent=4, sort_keys=True))
