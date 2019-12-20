@@ -69,7 +69,7 @@ class Twitter:
         print(tweet_id + " liked!")
 
     def getFollowersList(self, screen_name, cursor=-1):
-        fetchCount = 50
+        fetchCount = 5
         followers = self.twitter.get_followers_list(screen_name=screen_name, count=fetchCount, cursor=cursor)
         return followers
 

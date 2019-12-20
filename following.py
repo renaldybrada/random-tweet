@@ -1,6 +1,7 @@
 from services.twitter import Twitter
 import random
 import json
+import datetime
 
 def isFollowed(follower):
     if follower['follow_request_sent'] or follower['following']:
@@ -31,7 +32,7 @@ def populatingFollowingCandidate(twitterAccount, cursor=-1):
     candidate = []
 
     followersResponse = twitter.getFollowersList(twitterAccount, cursor=cursor)
-    print ("observing " + twitterAccount + "'s followers.. \n")
+    print ("observing " + twitterAccount + "'s followers..")
 
     followers = followersResponse['users']
     for follower in followers:
@@ -39,7 +40,6 @@ def populatingFollowingCandidate(twitterAccount, cursor=-1):
             continue
         elif isWorthFollowing(follower) :
             screen_name = follower['screen_name']
-            print(screen_name)
             if( type(screen_name) != None ):
                 candidate.append(screen_name)
         else :
@@ -51,6 +51,7 @@ def populatingFollowingCandidate(twitterAccount, cursor=-1):
     else:
         return candidate
 
+print(datetime.datetime.now())
 try:
     twitter = Twitter()
     twitterAccount = selectedTwitterAccount()
@@ -60,6 +61,6 @@ try:
         twitter.followAccount(user)
 except Exception as e:
     print('something went wrong: '+ str(e))
-
+print("\n")
 
 # print (json.dumps(followers, indent=4, sort_keys=True))

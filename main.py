@@ -1,6 +1,7 @@
 from services.twitter import Twitter
 from services.quotes import Quotes
 import random
+import datetime
 
 def randomTweet():
     try:
@@ -44,10 +45,10 @@ def randomRetweet(likeTweet=True):
 
         if(likeTweet):
             twitter.likeTweet(tweet_id)
-        
     except:
         randomRetweet()
 
+print(datetime.datetime.now())
 idx = random.randrange(0, 21, 1)
 if(idx % 3 == 0):
     randomRetweet()
@@ -55,5 +56,5 @@ elif(idx % 3 == 1):
     randomRetweet(likeTweet=False)
 else:
     randomTweet()
-
+print("\n")
 
