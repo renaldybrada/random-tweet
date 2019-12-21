@@ -25,7 +25,7 @@ def isWorthFollowing(follower):
 def selectedTwitterAccount():
     twitterScreenNames = ["infomalang", "infobdg", "VICE_ID", "potretlawas", "NUgarislucu", "KatolikG", "mojokdotco", "ThelIluminatii"]
     # twitterScreenNames = ["infomalang", "infomalang", "infomalang"]
-    randIndex = random.randrange(0, 3, 1)
+    randIndex = random.randrange(0, 7, 1)
     return twitterScreenNames[randIndex]
 
 def populatingFollowingCandidate(twitterAccount, cursor=-1):
