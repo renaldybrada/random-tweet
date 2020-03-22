@@ -73,7 +73,7 @@ class Browse:
         elif idMenu == "99" :
             exit()
         else:
-            print('whoops!')
+            print('whoops! please select menu by typing its index')
             print("")
             self.showMenu()
 
@@ -164,5 +164,9 @@ print(twitter_title)
 
 browse = Browse()
 while True:
-    browse.showMenu()
-
+    try :
+        browse.showMenu()
+    except :
+        print('something went wrong, if this happen again please restart the app')
+        print('')
+        browse.showMenu()
