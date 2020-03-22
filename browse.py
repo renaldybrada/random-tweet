@@ -10,6 +10,8 @@ class Browse:
         { 'id' : 3, 'title' : 'Like a tweet' },
         { 'id' : 4, 'title' : 'Reply a tweet' },
         { 'id' : 5, 'title' : 'Tweet to the world' },
+        { 'id' : 6, 'title' : 'Trending near me' },
+        { 'id' : 7, 'title' : 'Trending worldwide' },
         { 'id' : 99, 'title' : 'Get out from here! my boss is coming' }
     ]
 
@@ -64,6 +66,10 @@ class Browse:
             message = input('type your tweet : ')
             self.twitter.postTweet(message)
             print('')
+        elif idMenu == "6" :
+            self.showTrending(False)
+        elif idMenu == "7" :
+            self.showTrending()
         elif idMenu == "99" :
             exit()
         else:
@@ -88,9 +94,9 @@ class Browse:
 
         # pagination
         current_page = 0
-        last_page = self.tweet_limit / self.per_page
+        last_page = len(timeline) / self.per_page
         
-        while current_page != last_page :
+        while current_page < last_page :
             firstIndex = current_page * self.per_page
             lastIndex = firstIndex + self.per_page
             print('timeline page ' + str(current_page + 1))
@@ -114,6 +120,43 @@ class Browse:
                 break
 
             current_page += 1
+
+    def showTrending(self, isWorldwide = True):
+        trends = []
+        if isWorldwide :
+            self.printTitle('Trending WW')
+            trends = self.twitter.getWorldWideTrend()
+        else :
+            self.printTitle('Trending near you')
+            trends = self.twitter.getClosestTrend()
+        
+        # pagination
+        current_page = 0
+        last_page = len(trends) / self.per_page
+
+        while current_page < last_page :
+            firstIndex = current_page * self.per_page
+            lastIndex = firstIndex + self.per_page
+            print('trend page ' + str(current_page + 1))
+            print('') 
+            showTrends = trends[firstIndex:lastIndex]
+
+            for trend in showTrends:
+                print(trend['name'])
+                trend_volume = 0
+                if trend['tweet_volume'] != None :
+                    trend_volume = trend['tweet_volume']
+                print(str(trend_volume) + ' tweets')
+                print('==================================')
+
+            action = input('press any key to continue or "m" to back to menu.. ')
+            print("")
+            if(action == "m"):
+                self.showMenu()
+                break
+
+            current_page += 1
+
 
 # show title
 twitter_title = pyfiglet.figlet_format("Twitter-CLI", font = "slant")
