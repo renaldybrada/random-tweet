@@ -8,7 +8,7 @@ In the beginning, this repository was just my playground for exploring python us
 
 # New Features!
 
-Now you can accessing your account via CLI. Basically the feature is play twitter on your terminal. The key features are :
+Now you can accessing your account via CLI. Basically the idea is browsing twitter on your terminal. The key features are :
 
   - Show your home timeline : including your tweets and your following tweets
   - Show specified user timeline
