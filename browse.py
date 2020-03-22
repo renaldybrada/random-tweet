@@ -8,13 +8,17 @@ class Browse:
         { 'id' : 1, 'title' : 'Stalk someone timeline' },
         { 'id' : 2, 'title' : 'Retweet a tweet' },
         { 'id' : 3, 'title' : 'Like a tweet' },
-        { 'id' : 4, 'title' : 'Tweet to the world' },
-        { 'id' : 99, 'title' : 'Get out from here! my boss is watching' }
+        { 'id' : 4, 'title' : 'Reply a tweet' },
+        { 'id' : 5, 'title' : 'Tweet to the world' },
+        { 'id' : 99, 'title' : 'Get out from here! my boss is coming' }
     ]
 
-    # Tweet Pagination
+    # Timeline Pagination
     tweet_limit = 200
     per_page = 5
+
+    # Twitter constructor
+    twitter = Twitter() 
 
     def printTitle(self, title):
         text = pyfiglet.figlet_format(title)
@@ -41,12 +45,25 @@ class Browse:
         if idMenu == "0" :
             self.showTimeline()
         elif idMenu == "1" :
-            screen_name = input('whom you will stalk? [type screen name] ')
+            screen_name = input('whom you will stalk? [type username] ')
             self.showTimeline(False, screen_name)
         elif idMenu == "2" :
-            print('retweet under construction')
+            tweet_id = input('which tweet you want to retweet [type tweet id] ')
+            self.twitter.retweet(tweet_id)
+            print('')
         elif idMenu == "3" :
-            print('like under construction')
+            tweet_id = input('which tweet you want to like [type tweet id] ')
+            self.twitter.likeTweet(tweet_id)
+            print('')
+        elif idMenu == "4" :
+            tweet_id = input('which tweet you want to reply [type tweet id] ')
+            message = input('type your reply : ')
+            self.twitter.replyTweet(message, tweet_id)
+            print('')
+        elif idMenu == "5" :
+            message = input('type your tweet : ')
+            self.twitter.postTweet(message)
+            print('')
         elif idMenu == "99" :
             exit()
         else:
@@ -57,18 +74,17 @@ class Browse:
         print("")
 
     # showing timeline
-    def showTimeline(self, isHome = True, screen_name = ''):    
-        twitter = Twitter()
+    def showTimeline(self, isHome = True, screen_name = ''):
         if isHome :
             self.printTitle('timeline')
-            timeline = twitter.getHomeTimeline(self.tweet_limit)
+            timeline = self.twitter.getHomeTimeline(self.tweet_limit)
         else :
             if screen_name == '' :
                 print('screen name not specified')
                 self.showMenu()
             else:
                 self.printTitle(screen_name + " timeline's")
-                timeline = twitter.getUserTimeline(screen_name, self.tweet_limit)
+                timeline = self.twitter.getUserTimeline(screen_name, self.tweet_limit)
 
         # pagination
         current_page = 0
@@ -98,7 +114,6 @@ class Browse:
                 break
 
             current_page += 1
-
 
 # show title
 twitter_title = pyfiglet.figlet_format("Twitter-CLI", font = "slant")
