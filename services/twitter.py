@@ -27,8 +27,8 @@ class Twitter:
         timeline = self.twitter.get_home_timeline(count=count)
         return timeline
     
-    def getUserTimeline(self, screen_name):
-        timeline = self.twitter.get_user_timeline(screen_name=screen_name)
+    def getUserTimeline(self, screen_name, count=200):
+        timeline = self.twitter.get_user_timeline(screen_name=screen_name, count=count)
         return timeline
         
     def postTweet(self, message):
@@ -36,6 +36,9 @@ class Twitter:
         print("Tweeted: " + message)
 
     def replyTweet(self, message, tweet_id):
+        selected_tweet = self.twitter.show_status(id=tweet_id)
+        mention_tweet_owner = '@' + selected_tweet['user']['screen_name']
+        message = mention_tweet_owner + ' ' + message
         self.twitter.update_status(status=message, in_reply_to_status_id=tweet_id)
         print("Tweeted reply: " + message)
 
