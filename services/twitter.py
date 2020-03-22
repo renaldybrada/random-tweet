@@ -27,8 +27,8 @@ class Twitter:
         timeline = self.twitter.get_home_timeline(count=count)
         return timeline
     
-    def getUserTimeline(self, screen_name):
-        timeline = self.twitter.get_user_timeline(screen_name=screen_name)
+    def getUserTimeline(self, screen_name, count=200):
+        timeline = self.twitter.get_user_timeline(screen_name=screen_name, count=count)
         return timeline
         
     def postTweet(self, message):
